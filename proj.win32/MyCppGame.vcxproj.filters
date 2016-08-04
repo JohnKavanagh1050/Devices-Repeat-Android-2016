@@ -15,19 +15,19 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
+    <ClCompile Include="..\Classes\src\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+    <ClCompile Include="..\Classes\src\GameOverScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameOverScene.cpp">
+    <ClCompile Include="..\Classes\src\GameScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameScene.cpp">
+    <ClCompile Include="..\Classes\src\MainMenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PauseScene.cpp">
+    <ClCompile Include="..\Classes\src\PauseScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,19 +35,19 @@
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
+    <ClInclude Include="..\Classes\include\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MainMenuScene.h">
+    <ClInclude Include="..\Classes\include\GameOverScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameOverScene.h">
+    <ClInclude Include="..\Classes\include\GameScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameScene.h">
+    <ClInclude Include="..\Classes\include\MainMenuScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PauseScene.h">
+    <ClInclude Include="..\Classes\include\PauseScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
