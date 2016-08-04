@@ -9,7 +9,6 @@ typedef struct tagResource
 	char directory[100];
 } Resource;
 
-
 // Landscape config.
 // 800x480 = Normal screen, WVGA 
 static Resource smallResource = { cocos2d::Size(800, 480), "sd" };
@@ -88,7 +87,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		}
 
 		director->setContentScaleFactor(scaleFactor);
+		// Need to add our "data" path too.
+		searchPath.push_back("data");
 		fileUtils->setSearchPaths(searchPath);
+
+		// Create the GameData singleton.
+		m_ptr = GameData::sharedGameData();
+		// Create the level loader object to load general game data.
+		LevelLoader loader("data/GeneralGameData.json");
 
 		// Set FPS. the default value is 1.0/60 if you don't call this
 		director->setAnimationInterval(1.0 / 60);
