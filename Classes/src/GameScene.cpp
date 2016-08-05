@@ -43,9 +43,21 @@ bool GameScene::init()
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu);
 
+	addBackGroundSprite(visibleSize, origin);
+
 	return true;
 }
 
+void GameScene::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin)
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+
+	auto backgroundSprite = Sprite::create
+		(ptr->m_backgroundTextureFile);
+	backgroundSprite->setPosition(Point((visibleSize.width / 2) +
+		origin.x, (visibleSize.height / 2) + origin.y));
+	this->addChild(backgroundSprite, -1);
+}
 
 void GameScene::menuCloseCallback(Ref* pSender)
 {

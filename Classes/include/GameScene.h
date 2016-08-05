@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "PauseScene.h"
 #include "GameOverScene.h"
+#include "GameData.h"
 
 class GameScene : public cocos2d::Layer
 {
@@ -11,6 +12,8 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+
+	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
