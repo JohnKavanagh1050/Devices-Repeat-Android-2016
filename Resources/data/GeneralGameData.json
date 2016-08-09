@@ -10,7 +10,7 @@
             "tower_gun_file" :  "Tower.png",
             "tower_width" :  62,
             "tower_height" : 53,
-            "firing_delay" :  800,
+            "firing_delay" :  100,
             "tower_rotation_speed" :  3,
             "tower_rotation_origin" :  
             {

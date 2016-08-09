@@ -15,9 +15,13 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
    					  ../../Classes/src/GameData.cpp \
    					  ../../Classes/src/GameOverScene.cpp \
    					  ../../Classes/src/GameScene.cpp \
+              ../../Classes/src/GameStates.cpp \
   					  ../../Classes/src/LevelLoader.cpp \
   					  ../../Classes/src/MainMenuScene.cpp \
-  					  ../../Classes/src/PauseScene.cpp 
+  					  ../../Classes/src/PauseScene.cpp \
+  					  ../../Classes/src/Projectile.cpp \
+  					  ../../Classes/src/TowerBase.cpp \
+  					  ../../Classes/src/TowerGun.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes/include
 
