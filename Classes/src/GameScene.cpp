@@ -25,11 +25,10 @@ bool GameScene::init()
 	{
 		return false;
 	}
+	m_gameState = GameStates::PlaceGunTower;
 
-	auto pauseItem =
-		MenuItemImage::create("GameScreen/Pause_Button.png",
-		"GameScreen/Pause_Button(Click).png",
-		CC_CALLBACK_1(GameScene::activatePauseScene, this));
+	auto pauseItem = MenuItemImage::create("GameScreen/Pause_Button.png",
+		"GameScreen/Pause_Button(Click).png", CC_CALLBACK_1(GameScene::activatePauseScene, this));
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -44,6 +43,11 @@ bool GameScene::init()
 	this->addChild(menu);
 
 	addBackGroundSprite(visibleSize, origin);
+
+	createTowerBases(); 
+
+	this->scheduleUpdate();
+	
 
 	return true;
 }
@@ -66,6 +70,78 @@ void GameScene::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void GameScene::update(float dt)
+{
+	switch (m_gameState)
+	{
+	case GameStates::GameInit:
+		showTower();        
+		destroyBases();  
+		addEvents();
+		break;
+	case GameStates::GameRunning:
+		m_towerGun->update(dt);
+		break;
+	default:
+		break;
+	}
+}
+
+void GameScene::addEvents()
+{
+	//Create a "one by one" touch event listener (processes one touch at a time)
+	auto listener1 = EventListenerTouchOneByOne::create();
+	// When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
+	listener1->setSwallowTouches(true);
+
+	// Example of using a lambda expression to implement onTouchBegan event callback function
+	listener1->onTouchBegan = [this](Touch* touch, Event* event){
+		Vec2 pos = touch->getLocation();
+		this->m_towerGun->m_fireRequest = true;
+		this->m_towerGun->rotateTowerToPoint(pos);
+		return true;
+	};
+
+	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener1, 30);
+}
+
+void GameScene::destroyBases()
+{
+	cocos2d::Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
+	this->removeChildByName(TOWERS_SPRITE_BATCH, true);
+	m_towerBases.clear();
+	m_towerBases.shrink_to_fit();
+}
+
+void GameScene::showTower()
+{
+	Vec2 loc(0, 0);
+	for (int i = 0; i < m_towerBases.size(); i++)
+	{
+		if (m_towerBases.at(i)->isTouched())
+		{
+			loc = m_towerBases.at(i)->getPosition();
+		}
+	}
+	m_towerGun = TowerGun::create(loc);
+	this->addChild(m_towerGun);
+	m_gameState = GameStates::GameRunning;
+}
+
+void GameScene::createTowerBases()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+
+	for (int i = 0; i < ptr->m_numberOfTowerBases; i++)
+	{
+		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
+		m_towerBases.push_back(base);
+		spritebatch->addChild(base, 1);
+	}
+	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
 }
 
 void GameScene::activatePauseScene(Ref *pSender)
