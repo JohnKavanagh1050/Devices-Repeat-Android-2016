@@ -4,28 +4,27 @@ USING_NS_CC;
 
 Scene* GameScene::createScene()
 {
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
+	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = GameScene::create();
+	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 
-    // add layer as a child to scene
-    scene->addChild(layer);
+	scene->addChild(layer);
 
-    // return the scene
-    return scene;
+	return scene;
 }
 
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
 
-	if (!Layer::init())
-	{
-		return false;
-	}
-	m_gameState = GameStates::PlaceGunTower;
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	auto pauseItem = MenuItemImage::create("GameScreen/Pause_Button.png",
 		"GameScreen/Pause_Button(Click).png", CC_CALLBACK_1(GameScene::activatePauseScene, this));
@@ -44,10 +43,15 @@ bool GameScene::init()
 
 	addBackGroundSprite(visibleSize, origin);
 
-	createTowerBases(); 
+	player = Player::create();
+	player->setPosition(Vec2(300, 100));
+	this->addChild(player, 5);
 
 	this->scheduleUpdate();
-	
+
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	return true;
 }
@@ -63,91 +67,34 @@ void GameScene::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::
 	this->addChild(backgroundSprite, -1);
 }
 
-void GameScene::menuCloseCallback(Ref* pSender)
-{
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-}
-
 void GameScene::update(float dt)
 {
-	switch (m_gameState)
-	{
-	case GameStates::GameInit:
-		showTower();        
-		destroyBases();  
-		addEvents();
-		break;
-	case GameStates::GameRunning:
-		m_towerGun->update(dt);
-		break;
-	default:
-		break;
-	}
+	player->update(this);
 }
 
-void GameScene::addEvents()
+bool GameScene::onTouchBegan(Touch *touch, Event *event)
 {
-	//Create a "one by one" touch event listener (processes one touch at a time)
-	auto listener1 = EventListenerTouchOneByOne::create();
-	// When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
-	listener1->setSwallowTouches(true);
+	//get location of my touch event for player movement
+	float x = touch->getLocation().x - player->getPosition().x;
+	float y = touch->getLocation().y - player->getPosition().y;
+	float magnitude = sqrtf(powf(x, 2) + powf(y, 2));
+	x /= magnitude;
+	y /= magnitude;
 
-	// Example of using a lambda expression to implement onTouchBegan event callback function
-	listener1->onTouchBegan = [this](Touch* touch, Event* event){
-		Vec2 pos = touch->getLocation();
-		this->m_towerGun->m_fireRequest = true;
-		this->m_towerGun->rotateTowerToPoint(pos);
-		return true;
-	};
+	player->move(x, y);
 
-	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener1, 30);
+	return true;
 }
 
-void GameScene::destroyBases()
+void GameScene::onTouchEnded(Touch *touch, Event *event)
 {
-	cocos2d::Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
-	this->removeChildByName(TOWERS_SPRITE_BATCH, true);
-	m_towerBases.clear();
-	m_towerBases.shrink_to_fit();
-}
-
-void GameScene::showTower()
-{
-	Vec2 loc(0, 0);
-	for (int i = 0; i < m_towerBases.size(); i++)
-	{
-		if (m_towerBases.at(i)->isTouched())
-		{
-			loc = m_towerBases.at(i)->getPosition();
-		}
-	}
-	m_towerGun = TowerGun::create(loc);
-	this->addChild(m_towerGun);
-	m_gameState = GameStates::GameRunning;
-}
-
-void GameScene::createTowerBases()
-{
-	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
-
-	for (int i = 0; i < ptr->m_numberOfTowerBases; i++)
-	{
-		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
-		m_towerBases.push_back(base);
-		spritebatch->addChild(base, 1);
-	}
-	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
+	player->idle();
 }
 
 void GameScene::activatePauseScene(Ref *pSender)
 {
-	//auto scene = PauseMenu::createScene();
-	auto scene = GameOver::createScene();
+	auto scene = PauseMenu::createScene();
+	//auto scene = GameOver::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
@@ -155,4 +102,9 @@ void GameScene::activateGameOverScene(Ref *pSender)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(scene);
+}
+
+bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
+{
+	return true;
 }

@@ -145,6 +145,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\src\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\src\Bullet.cpp" />
     <ClCompile Include="..\Classes\src\GameData.cpp" />
     <ClCompile Include="..\Classes\src\GameOverScene.cpp" />
     <ClCompile Include="..\Classes\src\GameScene.cpp" />
@@ -153,12 +154,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\src\main.cpp" />
     <ClCompile Include="..\Classes\src\MainMenuScene.cpp" />
     <ClCompile Include="..\Classes\src\PauseScene.cpp" />
+    <ClCompile Include="..\Classes\src\Player.cpp" />
     <ClCompile Include="..\Classes\src\Projectile.cpp" />
     <ClCompile Include="..\Classes\src\TowerBase.cpp" />
     <ClCompile Include="..\Classes\src\TowerGun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\include\AppDelegate.h" />
+    <ClInclude Include="..\Classes\include\Bullet.h" />
     <ClInclude Include="..\Classes\include\GameData.h" />
     <ClInclude Include="..\Classes\include\GameOverScene.h" />
     <ClInclude Include="..\Classes\include\GameScene.h" />
@@ -167,6 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\include\main.h" />
     <ClInclude Include="..\Classes\include\MainMenuScene.h" />
     <ClInclude Include="..\Classes\include\PauseScene.h" />
+    <ClInclude Include="..\Classes\include\Player.h" />
     <ClInclude Include="..\Classes\include\Projectile.h" />
     <ClInclude Include="..\Classes\include\TowerBase.h" />
     <ClInclude Include="..\Classes\include\TowerGun.h" />

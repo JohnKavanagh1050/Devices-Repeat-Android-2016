@@ -48,6 +48,12 @@
     <ClCompile Include="..\Classes\src\Projectile.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\include\AppDelegate.h">
@@ -84,6 +90,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Projectile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Bullet.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

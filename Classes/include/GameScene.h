@@ -1,5 +1,4 @@
-#ifndef __GAMESCENE_SCENE_H__
-#define __GAMESCENE_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
 #include "PauseScene.h"
@@ -8,38 +7,44 @@
 #include "GameStates.h"
 #include "TowerBase.h"
 #include "TowerGun.h"
+#include "Bullet.h"
+
+#include "SimpleAudioEngine.h"  
 
 #include <string>
+#include <iostream>
+class Player;
 
 class GameScene : public cocos2d::Layer
 {
 private:
 	GameStates m_gameState;
-	std::vector<TowerBase *> m_towerBases;
-	std::string const TOWERS_SPRITE_BATCH = "TowerBases";
-	TowerGun * m_towerGun;
+
+	Player* player;
 
 public:
+	cocos2d::PhysicsWorld * sceneWorld;
+	void SetPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
     static cocos2d::Scene* createScene();
-
     virtual bool init();
 
 	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
     
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
 	// Called when user pauses gameplay.
 	void activatePauseScene(Ref *pSender);
 	// Called at game over 
 	void activateGameOverScene(Ref *pSender);
-	void addEvents();
 	void createTowerBases();
 	void update(float dt);
-	void destroyBases();
-	void showTower();
+
+	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
+	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
+
+	bool onContactBegin(cocos2d::PhysicsContact &contact);
+
 
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#include "Player.h"
