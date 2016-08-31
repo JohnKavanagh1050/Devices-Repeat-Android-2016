@@ -86,7 +86,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 			scaleFactor = smallResource.size.height / designResolutionSize.height;
 		}
 
-		director->setContentScaleFactor(scaleFactor);
+		director->setContentScaleFactor(1);
 		// Need to add our "data" path too.
 		searchPath.push_back("data");
 		fileUtils->setSearchPaths(searchPath);

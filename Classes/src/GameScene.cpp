@@ -41,7 +41,7 @@ bool GameScene::init()
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu);
 
-	addBackGroundSprite(visibleSize, origin);
+	//addBackGroundSprite(visibleSize, origin);
 
 	player = Player::create();
 	player->setPosition(Vec2(300, 100));
@@ -96,12 +96,16 @@ void GameScene::activatePauseScene(Ref *pSender)
 	auto scene = PauseMenu::createScene();
 	//auto scene = GameOver::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic("GameMusic.wav");
+
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("bossHit.wav");
 }
 
 void GameScene::activateGameOverScene(Ref *pSender)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)

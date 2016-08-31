@@ -53,7 +53,7 @@ void Bullet::initBullet(){
 
 void Bullet::updatePlayerBullet()
 {
-	setPositionY(getPositionY() + 5);
+	setPositionX(getPositionX() - 5);
 	timecounter++;
 	if (timecounter >= 1000){
 		remove = true;

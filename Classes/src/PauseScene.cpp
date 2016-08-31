@@ -20,7 +20,7 @@ Scene* PauseMenu::createScene()
 // on "init" you need to initialize your instance
 bool PauseMenu::init()
 {
-	if (!Layer::init())
+	if (!LayerColor::initWithColor(Color4B(255, 140, 0, 255)))
 	{
 		return false;
 	}
@@ -41,7 +41,7 @@ bool PauseMenu::init()
 		NULL);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
+	menu->alignItemsVerticallyWithPadding(visibleSize.height / 20);
 	this->addChild(menu);
     
     return true;
@@ -60,6 +60,7 @@ void PauseMenu::menuCloseCallback(Ref* pSender)
 void PauseMenu::resume(Ref *pSender)
 {
 	Director::getInstance()->popScene();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("GameMusic.wav", true);
 }
 
 void PauseMenu::activateMainMenuScene(Ref *pSender)
@@ -67,6 +68,7 @@ void PauseMenu::activateMainMenuScene(Ref *pSender)
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("MenuMusic.wav", true);
 }
 
 void PauseMenu::retry(Ref *pSender)
@@ -74,4 +76,5 @@ void PauseMenu::retry(Ref *pSender)
 	auto scene = GameScene::createScene();
 	Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("GameMusic.wav", true);
 }

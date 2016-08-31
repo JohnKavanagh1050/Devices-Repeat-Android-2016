@@ -86,7 +86,7 @@ void Player::update(GameScene* world)
 		setPositionY(getPosition().y + dirY * speed);
 	}
 
-	setRotation(0);
+	setRotation(270);
 	counter++;
 }
 

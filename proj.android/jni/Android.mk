@@ -12,13 +12,15 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                       ../../Classes/src/AppDelegate.cpp \
-   					  ../../Classes/src/GameData.cpp \
+   					  ../../Classes/src/Bullet.cpp \
+              ../../Classes/src/GameData.cpp \
    					  ../../Classes/src/GameOverScene.cpp \
    					  ../../Classes/src/GameScene.cpp \
               ../../Classes/src/GameStates.cpp \
   					  ../../Classes/src/LevelLoader.cpp \
   					  ../../Classes/src/MainMenuScene.cpp \
   					  ../../Classes/src/PauseScene.cpp \
+              ../../Classes/src/Player.cpp \
   					  ../../Classes/src/Projectile.cpp \
   					  ../../Classes/src/TowerBase.cpp \
   					  ../../Classes/src/TowerGun.cpp 

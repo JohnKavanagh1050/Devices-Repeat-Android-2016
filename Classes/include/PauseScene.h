@@ -6,7 +6,7 @@
 #include "GameScene.h"
 #include "MainMenuScene.h"
 
-class PauseMenu : public cocos2d::Layer
+class PauseMenu : public cocos2d::LayerColor
 {
 public:
     static cocos2d::Scene* createScene();
