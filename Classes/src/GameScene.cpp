@@ -41,7 +41,17 @@ bool GameScene::init()
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu);
 
-	//addBackGroundSprite(visibleSize, origin);
+	//scrolling background
+	bk1 = CCSprite::create("GameScreen/Background.png");
+	bk1->setAnchorPoint(ccp(0, 0));
+	bk1->setPosition(ccp(0, 0));
+
+	bk2 = CCSprite::create("GameScreen/Background.png");
+	bk2->setAnchorPoint(ccp(0, 0));
+	bk2->setPosition(ccp(-bk1->boundingBox().size.width + 1, 0));
+
+	this->addChild(bk1, 0);
+	this->addChild(bk2, 0);
 
 	player = Player::create();
 	player->setPosition(Vec2(300, 100));
@@ -67,9 +77,23 @@ void GameScene::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::
 	this->addChild(backgroundSprite, -1);
 }
 
+void GameScene::scrollBk()
+{
+	bk1->setPosition(ccp(bk1->getPosition().x + 1, bk1->getPosition().y));
+	bk2->setPosition(ccp(bk2->getPosition().x + 1, bk2->getPosition().y));
+
+	if (bk1->getPosition().x < -bk1->boundingBox().size.width){
+		bk1->setPosition(ccp(bk2->getPosition().x - bk2->boundingBox().size.width, bk1->getPosition().y));
+	}
+	if (bk2->getPosition().x < -bk2->boundingBox().size.width){
+		bk2->setPosition(ccp(bk1->getPosition().x - bk1->boundingBox().size.width, bk2->getPosition().y));
+	}
+}
+
 void GameScene::update(float dt)
 {
 	player->update(this);
+	scrollBk();
 }
 
 bool GameScene::onTouchBegan(Touch *touch, Event *event)

@@ -22,6 +22,9 @@ private:
 
 	Player* player;
 
+	cocos2d::CCSprite* bk1;
+	cocos2d::CCSprite* bk2;
+
 public:
 	cocos2d::PhysicsWorld * sceneWorld;
 	void SetPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
@@ -36,6 +39,7 @@ public:
 	void activateGameOverScene(Ref *pSender);
 	void createTowerBases();
 	void update(float dt);
+	void scrollBk();
 
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
