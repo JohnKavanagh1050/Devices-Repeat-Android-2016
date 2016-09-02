@@ -14,13 +14,14 @@
 #include <string>
 #include <iostream>
 class Player;
-
+class Meteor;
 class GameScene : public cocos2d::Layer
 {
 private:
 	GameStates m_gameState;
 
 	Player* player;
+	Meteor* meteor;
 
 	cocos2d::CCSprite* bk1;
 	cocos2d::CCSprite* bk2;
@@ -52,3 +53,4 @@ public:
 };
 
 #include "Player.h"
+#include "Meteor.h"

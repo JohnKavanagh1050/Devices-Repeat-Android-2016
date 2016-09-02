@@ -6,7 +6,7 @@ Scene* GameScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 
@@ -57,6 +57,10 @@ bool GameScene::init()
 	player->setPosition(Vec2(300, 100));
 	this->addChild(player, 5);
 
+	meteor = Meteor::createMeteor();
+	meteor->setPosition(Vec2(0, 200));
+	this->addChild(meteor, 5);
+
 	this->scheduleUpdate();
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -82,16 +86,17 @@ void GameScene::scrollBk()
 	bk1->setPosition(ccp(bk1->getPosition().x + 1, bk1->getPosition().y));
 	bk2->setPosition(ccp(bk2->getPosition().x + 1, bk2->getPosition().y));
 
-	if (bk1->getPosition().x < -bk1->boundingBox().size.width){
+	if (bk1->getPosition().x > bk1->boundingBox().size.width){
 		bk1->setPosition(ccp(bk2->getPosition().x - bk2->boundingBox().size.width, bk1->getPosition().y));
 	}
-	if (bk2->getPosition().x < -bk2->boundingBox().size.width){
+	if (bk2->getPosition().x > bk2->boundingBox().size.width){
 		bk2->setPosition(ccp(bk1->getPosition().x - bk1->boundingBox().size.width, bk2->getPosition().y));
 	}
 }
 
 void GameScene::update(float dt)
 {
+	meteor->updateMeteor();
 	player->update(this);
 	scrollBk();
 }

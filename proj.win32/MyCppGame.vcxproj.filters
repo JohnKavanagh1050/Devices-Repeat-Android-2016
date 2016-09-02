@@ -54,6 +54,9 @@
     <ClCompile Include="..\Classes\src\Bullet.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\Metoer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\include\AppDelegate.h">
@@ -96,6 +99,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Meteor.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
