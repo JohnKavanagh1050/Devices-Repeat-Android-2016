@@ -153,6 +153,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\src\LevelLoader.cpp" />
     <ClCompile Include="..\Classes\src\main.cpp" />
     <ClCompile Include="..\Classes\src\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\src\MeteorFactory.cpp" />
     <ClCompile Include="..\Classes\src\Metoer.cpp" />
     <ClCompile Include="..\Classes\src\PauseScene.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
@@ -171,6 +172,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\include\main.h" />
     <ClInclude Include="..\Classes\include\MainMenuScene.h" />
     <ClInclude Include="..\Classes\include\Meteor.h" />
+    <ClInclude Include="..\Classes\include\MeteorFactory.h" />
     <ClInclude Include="..\Classes\include\PauseScene.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
     <ClInclude Include="..\Classes\include\Projectile.h" />

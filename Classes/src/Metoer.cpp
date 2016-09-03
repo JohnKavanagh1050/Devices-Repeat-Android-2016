@@ -10,12 +10,12 @@ Meteor * Meteor::createMeteor()
 	{
 		cocos2d::Size size(67, 67);
 		auto meteorBody = PhysicsBody::createBox(size);
-		meteorBody->setCollisionBitmask(0x000001);
+		meteorBody->setCollisionBitmask(0x000003);
 		meteorBody->setContactTestBitmask(true);
-		meteorBody->setTag(10);
+		meteorBody->setTag(30);
 		meteor->setPhysicsBody(meteorBody);
 		meteor->initMeteor();
-		meteor->setTag(10);
+		meteor->setTag(30);
 
 		return meteor;
 	}
@@ -33,7 +33,7 @@ void Meteor::initMeteor(){
 	remove = false;
 }
 
-void Meteor::updateMeteor()
+void Meteor::updateMeteor(GameScene* world)
 {
 	setPositionX(getPositionX() + 5);
 	timecounter++;

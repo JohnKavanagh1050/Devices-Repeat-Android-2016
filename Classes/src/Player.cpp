@@ -79,7 +79,6 @@ void Player::update(GameScene* world)
 		counter = 0;
 	}
 
-
 	if (moving) //check if moving
 	{
 		setPositionX(getPosition().x + dirX * speed);

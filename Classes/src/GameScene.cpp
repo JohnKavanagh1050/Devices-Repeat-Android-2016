@@ -6,7 +6,7 @@ Scene* GameScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = GameScene::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 
@@ -57,9 +57,9 @@ bool GameScene::init()
 	player->setPosition(Vec2(300, 100));
 	this->addChild(player, 5);
 
-	meteor = Meteor::createMeteor();
-	meteor->setPosition(Vec2(0, 200));
-	this->addChild(meteor, 5);
+//	meteor = Meteor::createMeteor();
+	//meteor->setPosition(Vec2(0, 200));
+	//this->addChild(meteor, 5);
 
 	this->scheduleUpdate();
 
@@ -96,7 +96,6 @@ void GameScene::scrollBk()
 
 void GameScene::update(float dt)
 {
-	meteor->updateMeteor();
 	player->update(this);
 	scrollBk();
 }

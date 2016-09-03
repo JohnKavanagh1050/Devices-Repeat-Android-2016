@@ -4,13 +4,13 @@
 #include "GameData.h"
 #include "GameStates.h"
 #include "GameScene.h"
+#include "Meteor.h"
 
-class Meteor : public cocos2d::Sprite{
+class MeteorFactory : public cocos2d::Sprite{
 public:
-	static Meteor * createMeteor(void);
 	void initMeteor();
 	void deleteMeteor(GameScene* world, int i);
-	void updateMeteor(GameScene* world);
+	void updateMeteorFactory(GameScene* world);
 	bool getRemove();
 
 	std::vector<Meteor*> getMeteor();
