@@ -18,6 +18,4 @@ private:
 	int timecounter;
 	short const TIMETOLIVE = 60;
 	bool remove;
-
-	//std::vector<SpriteFrame*> animFrames(4);
 };

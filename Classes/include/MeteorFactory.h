@@ -8,12 +8,10 @@
 
 class MeteorFactory : public cocos2d::Sprite{
 public:
-	void initMeteor();
+	static MeteorFactory * createMeteorFactory(void);
 	void deleteMeteor(GameScene* world, int i);
 	void updateMeteorFactory(GameScene* world);
-	bool getRemove();
-
-	std::vector<Meteor*> getMeteor();
+	std::vector<Meteor*> getMeteors();
 
 private:
 	int timeAlive;

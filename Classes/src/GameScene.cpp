@@ -39,7 +39,7 @@ bool GameScene::init()
 
 	auto menu = Menu::create(pauseItem, NULL);
 	menu->setPosition(Point::ZERO);
-	this->addChild(menu);
+	this->addChild(menu, 6);
 
 	//scrolling background
 	bk1 = CCSprite::create("GameScreen/Background.png");
@@ -57,9 +57,7 @@ bool GameScene::init()
 	player->setPosition(Vec2(300, 100));
 	this->addChild(player, 5);
 
-//	meteor = Meteor::createMeteor();
-	//meteor->setPosition(Vec2(0, 200));
-	//this->addChild(meteor, 5);
+	meteorFactory = MeteorFactory::createMeteorFactory();
 
 	this->scheduleUpdate();
 
@@ -97,6 +95,8 @@ void GameScene::scrollBk()
 void GameScene::update(float dt)
 {
 	player->update(this);
+	meteorFactory->updateMeteorFactory(this);
+	
 	scrollBk();
 }
 

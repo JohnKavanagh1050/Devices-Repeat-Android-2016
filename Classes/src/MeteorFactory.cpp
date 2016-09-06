@@ -1,9 +1,11 @@
-/*#include "MeteorFactory.h"
+#include "MeteorFactory.h"
 
 USING_NS_CC;
-
-bool MeteorFactory::getRemove(){
-	return remove;
+MeteorFactory * MeteorFactory::createMeteorFactory()
+{
+	MeteorFactory * meteorFactory = new MeteorFactory();
+	CC_SAFE_DELETE(meteorFactory);
+	return;
 }
 
 void MeteorFactory::deleteMeteor(GameScene* world, int i)
@@ -12,34 +14,32 @@ void MeteorFactory::deleteMeteor(GameScene* world, int i)
 	currentMeteors.erase(std::remove(currentMeteors.begin(), currentMeteors.end(), currentMeteors[i]));
 }
 
-std::vector<Meteor*> MeteorFactory::getMeteor()
+std::vector<Meteor*> MeteorFactory::getMeteors()
 {
 	return 	currentMeteors;
 }
 
-void MeteorFacotry::updateMeteorFactory(GameScene* world)
+void MeteorFactory::updateMeteorFactory(GameScene* world)
 {
 	CCSize s = CCDirector::sharedDirector()->getWinSize();
-
+	
 	for (int i = 0; i < currentMeteors.size(); i++){
-		if (currentMeteors[i]->getRemove()){
-			deleteMeteor(world, i);
+			if (currentMeteors[i]->getRemove()){
+				deleteMeteor(world, i);
+			}
+			else currentMeteors[i]->updateMeteor();
 		}
-		else currentMeteors[i]->setPositionX(getPositionX() + 5);
-	}
 
 	if (counter % (SECOND) == 0){
-		Meteor *meteor = createMeteor();
+		Meteor *meteor = Meteor::createMeteor();
 		currentMeteors.push_back(meteor);
-		meteor->setPosition(0, 150);
+		meteor->setPosition(0, 300);
 		world->addChild(meteor, 5);
 
 		counter = 0;
 	}
-
-	//setPositionX(getPositionX() + 5);
-	timecounter++;
+	counter++;
 	if (timecounter >= 1000){
 		remove = true;
 	}
-}*/
+}

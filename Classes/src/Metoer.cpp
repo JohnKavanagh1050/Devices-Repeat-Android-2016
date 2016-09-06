@@ -33,7 +33,7 @@ void Meteor::initMeteor(){
 	remove = false;
 }
 
-void Meteor::updateMeteor(GameScene* world)
+void Meteor::updateMeteor()
 {
 	setPositionX(getPositionX() + 5);
 	timecounter++;

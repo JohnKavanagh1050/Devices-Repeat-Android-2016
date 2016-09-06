@@ -10,10 +10,8 @@ public:
 	static Meteor * createMeteor(void);
 	void initMeteor();
 	void deleteMeteor(GameScene* world, int i);
-	void updateMeteor(GameScene* world);
+	void updateMeteor();
 	bool getRemove();
-
-	std::vector<Meteor*> getMeteor();
 
 private:
 	int timeAlive;
@@ -23,6 +21,4 @@ private:
 
 	short counter;
 	const short SECOND = 60;
-
-	std::vector<Meteor*> currentMeteors;
 };
